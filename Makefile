@@ -54,8 +54,19 @@ test_train: models/test.h5
 models/test.h5: $(DATASET)
 	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=linear --config=cfgs/myconfig_10Hz.py
 
+# Model
 models/linear_stable.h5: $(STABLE_DATA)
 	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=linear --config=cfgs/myconfig_10Hz.py
+
+models/rnn2_stable.h5: $(STABLE_DATA)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/myconfig_10Hz_rnn2.py
+
+models/rnn3_stable.h5: $(STABLE_DATA)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/ myconfig_10Hz_rnn3.py
+
+models/categorical_stable.h5: $(STABLE_DATA)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=categorical --config=cfgs/myconfig_10Hz_categorical.py
+
 
 .PHONY: .trimmed
 data/%.trimmed: save_data/%.trim
