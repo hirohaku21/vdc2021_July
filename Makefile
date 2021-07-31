@@ -13,8 +13,9 @@ TRM_ALL = $(TRM_EXAMPLE)
 
 #Mask
 MSK_EXAMPLE = data/Example_data.trimmed.masked1
-MSK_ALL = $(MSK_EXAMPLE)
-
+#MSK_ALL = $(MSK_EXAMPLE)
+MSK_STABLE_LAP = data/short_1.masked2 data/short_2.masked2 data/short_3.masked2 data/short_4.masked2
+MSK_ALL = $(MSK_STABLE_LAP)
 
 #Call Data
 DATASET = $(shell find data/ -type d | grep -v "images" | sed -e '1d' | tr '\n' ' ')
@@ -66,9 +67,23 @@ models/rnn2_stable.h5: $(STABLE_DATA)
 models/rnn3_stable.h5: $(STABLE_DATA)
 	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/ myconfig_10Hz_rnn3.py
 
-
 models/categorical_stable.h5: $(STABLE_DATA)
 	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=categorical --config=cfgs/myconfig_10Hz_categorical.py
+
+#mask_stable: $(MSK_STABLE_ALL)
+models/Mask_linear_stable.h5: $(DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=linear --config=cfgs/myconfig_10Hz.py
+
+models/Mask_rnn2_stable.h5: $(DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/myconfig_10Hz_rnn2.py
+
+models/Mask_rnn3_stable.h5: $(DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/ myconfig_10Hz_rnn3.py
+
+models/Mask_categorical_stable.h5: $(DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=categorical --config=cfgs/myconfig_10Hz_categorical.py
+
+
 
 models/7_stable_laps_RNN3.h5: $(STABLE_LAP)
 	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/ myconfig_10Hz_rnn3.py
@@ -82,9 +97,9 @@ data/%.masked1: data/%
 	$(PYTHON) scripts/image_mask.py $(subst .masked1,$(EMPTY),$<) 
 	mv $(subst .masked1,$(EMPTY),$<) $@
 
-#data/%.masked2: data/%
-#	$(PYTHON) scripts/image_mask.py $(subst .masked2,$(EMPTY),$<) $@ 
+data/%.masked2: data/%
+	$(PYTHON) scripts/image_mask.py $(subst .masked2,$(EMPTY),$<) $@ 
 
 # make a new masked files
-data/%.masked2: save_data/%
-	$(PYTHON) scripts/image_mask.py $(subst .masked2,$(EMPTY),$<) $@ 
+#data/%.masked2: save_data/%
+#	$(PYTHON) scripts/image_mask.py $(subst .masked2,$(EMPTY),$<) $@ 
