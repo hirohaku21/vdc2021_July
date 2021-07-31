@@ -52,7 +52,7 @@ test_train: models/test.h5
 
 models/test.h5: $(DATASET)
 	make arrange && \
-	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/myconfig_10Hz_rnn3.py
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=3d --config=cfgs/myconfig_10Hz_rnn3.py
 
 .PHONY: .trimmed
 data/%.trimmed: save_data/%.trim
@@ -68,4 +68,4 @@ data/%.masked1: data/%
 
 # make a new masked files
 data/%.masked2: save_data/%
-	$(PYTHON) scripts/image_mask.py $(subst .masked2,$(EMPTY),$<) $@ 
+	$(1PYTHON) scripts/image_mask.py $(subst .masked2,$(EMPTY),$<) $@ 
