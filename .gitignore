@@ -1,7 +1,6 @@
 .idea
 logs
 DonkeySimLinux
-models/*
 !.gitkeep
 cfgs/__pycache__
 scripts/__pycache__
