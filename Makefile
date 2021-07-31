@@ -18,7 +18,7 @@ MSK_ALL = $(MSK_EXAMPLE)
 
 #Call Data
 DATASET = $(shell find data/ -type d | grep -v "images" | sed -e '1d' | tr '\n' ' ')
-STABLE_DATA = $(shell find save_data/ -type d | grep -v "images" | sed -e '1d' | tr '\n' ' ')
+STABLE_DATA = $(shell find save_data/stable\&short_* -type d | grep -v "images" | tr '\n' ' ')
 none:
 	@echo "Argument is required."
 
