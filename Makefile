@@ -18,6 +18,7 @@ MSK_ALL = $(MSK_EXAMPLE)
 
 #Call Data
 DATASET = $(shell find data/ -type d | grep -v "images" | sed -e '1d' | tr '\n' ' ')
+STABLE_DATA = $(shell find save_data/stable\&short_* -type d | grep -v "images" | tr '\n' ' ')
 none:
 	@echo "Argument is required."
 
@@ -45,14 +46,16 @@ dataset: $(TRM_ALL)
 mask: $(MSK_ALL)
 
 test_run:
-	$(PYTHON) manage.py drive --model=models/test.h5 --type=rnn --myconfig=cfgs/myconfig_10Hz_rnn3.py
+	$(PYTHON) manage.py drive --model=models/test.h5 --type=linear --myconfig=cfgs/myconfig_10Hz.py
 
 test_train: models/test.h5
 	make models/test.h5
 
 models/test.h5: $(DATASET)
-	make arrange && \
-	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/myconfig_10Hz_rnn3.py
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=linear --config=cfgs/myconfig_10Hz.py
+
+models/linear_stable.h5: $(STABLE_DATA)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=linear --config=cfgs/myconfig_10Hz.py
 
 .PHONY: .trimmed
 data/%.trimmed: save_data/%.trim
