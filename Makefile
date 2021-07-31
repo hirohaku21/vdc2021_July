@@ -51,7 +51,7 @@ models/mylinear.h5: $(SAVED_DATASET)
 	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=linear --config=cfgs/myconfig_10Hz.py
 
 models/mycategorical.h5: $(SAVED_DATASET)
-	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=categorical --config=cfgs/myconfig_10Hz.py
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=categorical --config=cfgs/myconfig_10Hz_categorical.py
 
 # Tutorial
 dataset: $(TRM_ALL)
