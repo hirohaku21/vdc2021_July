@@ -18,6 +18,7 @@ MSK_ALL = $(MSK_EXAMPLE)
 
 #Call Data
 DATASET = $(shell find data/ -type d | grep -v "images" | sed -e '1d' | tr '\n' ' ')
+SAVED_DATASET = $(shell find save_data/ -type d | grep -v "images" | sed -e '1d' | tr '\n' ' ')
 none:
 	@echo "Argument is required."
 
@@ -38,6 +39,19 @@ record: record10
 
 record10:
 	$(PYTHON) manage.py drive --js --myconfig=cfgs/myconfig_10Hz.py
+
+## MODEL 
+models/myrnn2.h5: $(SAVED_DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/myconfig_10Hz_rnn2.py
+
+models/myrnn3.h5: $(SAVED_DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=rnn --config=cfgs/myconfig_10Hz_rnn3.py
+
+models/mylinear.h5: $(SAVED_DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=linear --config=cfgs/myconfig_10Hz.py
+
+models/mycategorical.h5: $(SAVED_DATASET)
+	TF_FORCE_GPU_ALLOW_GROWTH=true donkey train --tub=$(subst $(SPACE),$(COMMA),$^) --model=$@ --type=categorical --config=cfgs/myconfig_10Hz.py
 
 # Tutorial
 dataset: $(TRM_ALL)
