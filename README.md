@@ -1,7 +1,7 @@
-# Virtual Donkey Racing2021_June
+# Virtual Donkey Racing2021_July
 
 # Repository Introduction
-This repository includes Donkey v4.2 driving data, trained models, and Donkey configuration data for participation in the Virtual DonkeyCar Race racing in June 2021.  
+This repository includes Donkey v4.3 driving data, trained models, and Donkey configuration data for participation in the Virtual DonkeyCar Race racing in July 2021.  
 This repository refers to [hogenimushi/vdc2020_race03](https://github.com/hogenimushi/vdc2020_race03).
 
 ## Preparation
@@ -60,7 +60,7 @@ See the Makefile.
 - ```.gitignore```: This allows you to specify files and directories not to be pushed to the repository.　　
 
 # リポジトリ紹介
-このリポジトリは2021年6月のVirtual DonkeyCar Race racingに参加するためにDonkey v4.2 の走行データ、学習済みモデル、Donkeyのコンフィグデータを共有します。
+このリポジトリは2021年7月のVirtual DonkeyCar Race racingに参加するためにDonkey v4.3 の走行データ、学習済みモデル、Donkeyのコンフィグデータを共有します。
 このリポジトリは[hogenimushi/vdc2020_race03](https://github.com/hogenimushi/vdc2020_race03) を参考にして作っています。
 
 ## 準備
@@ -120,7 +120,7 @@ Makefileをご覧ください。
 - ```.gitignore```: リポジトリにpushしないファイルやディレクトリを指定できます。
 
 # 存储库介绍
-该存储库共享Donkey v4.2驾驶数据、训练模型和Donkey配置数据，以参加2021年6月的Virtual DonkeyCar Race比赛。  
+该存储库共享Donkey v4.3驾驶数据、训练模型和Donkey配置数据，以参加2021年7月的Virtual DonkeyCar Race比赛。  
 这个存储库是通过参考[hogenimushi/vdc2020_race03](https://github.com/hogenimushi/vdc2020_race03)创建的。  
 
 ## 准备
